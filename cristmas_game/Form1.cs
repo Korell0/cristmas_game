@@ -34,76 +34,102 @@ namespace cristmas_game
             int randomrow = n.Next(1, Size - 1);
             int randomcolumn = n.Next(1, Size - 1);
 
-            if (Map[randomrow,randomcolumn].Name == "Obstacle" && !NeighborhoodCheck(randomrow,randomcolumn))
-            {
-                GenerateSantaSnake();
-            }
-            else
-            {
-                Map[randomrow, randomcolumn].Background.BackColor = Color.Blue;
-            }
+
+                if (Map[randomrow, randomcolumn].Name == "Obstacle" && !NeighborhoodCheck(randomrow, randomcolumn))
+                {
+                    GenerateSantaSnake();
+                }
+                else
+                {
+                    Map[randomrow, randomcolumn].Name = "Santa";
+                    Map[randomrow, randomcolumn].Background.BackColor = Color.Blue;
+                }
+
 
 
         }
 
         private bool NeighborhoodCheck(int row, int column)
         {
-            //Down
+                MessageBox.Show($"{row}, {column}, {Map[row,column].Name}");
 
-            for (int sor = row; sor > row - 2; sor--)
+            if(Map[row, column].Name != "Obstacle")
             {
-                if (Map[sor,column].Name == "Obstacle" || Map[sor,column].Name == "Wall")
+                //Down
+                for (int sor = row; sor >= row - 2; sor--)
                 {
-                    return false;
+                MessageBox.Show($"Down\n{row}, {column}, {Map[row, column].Name}");
+                    if (Map[sor,column].Name != "Cell")
+                    {
+                        return false;
+                    }
+                    break;
                 }
+
+                //Up
+                for (int sor = row; sor <= row + 2; sor++)
+                {
+                MessageBox.Show($"UP\n{row}, {column}, {Map[row, column].Name}");
+                    if (Map[sor, column].Name != "Cell")
+                    {
+                        return false;
+                    }
+                    break;
+                }
+
+                //Right
+                for (int oszlop = column; oszlop < column; oszlop++)
+                {
+                MessageBox.Show($"RIGHT\n{row}, {column}, {Map[row, column].Name}");
+                    if (Map[row,oszlop].Name != "Cell")
+                    {
+                        return false;
+                    }
+                    break;
+                }
+
+                //Left
+                for (int oszlop = column; oszlop > column; oszlop--)
+                {
+                MessageBox.Show($"LEFT\n{row}, {column}, {Map[row, column].Name}");
+                    if (Map[row, oszlop].Name != "Cell")
+                    {
+                        return false;  
+                    }
+                }
+
+                return true;
+
             }
-
-            //Up
-
-            for (int sor = row; sor < row + 2; sor++)
+            else
             {
-                if (Map[sor, column].Name == "Obstacle" || Map[sor, column].Name == "Wall")
-                {
-                    return false;
-                }
+            return false;
+
             }
-
-            //Right
-
-            for (int oszlop = column; oszlop < column + 2; oszlop++)
-            {
-                if (Map[row,oszlop].Name == "Obstacle" || Map[row,oszlop].Name == "Wall")
-                {
-                    return false;
-                }
-            }
-
-            //Left
-
-            for (int oszlop = column; oszlop > column - 2; oszlop--)
-            {
-                if (Map[row, oszlop].Name == "Obstacle" || Map[row, oszlop].Name == "Wall")
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
 
         private void GenerateObstacle()
         {
             Random r = new Random();
+            int Sr = 0;
 
-            for (int i = 0; i < Obstacles; i++)
+            for (int i = 0; i < Size * Size; i++)
             {
-                int row = r.Next(1, Size - 1);
-                int column = r.Next(1, Size - 1);
-
-                if (Map[row, column].Background.BackColor == Color.Wheat)
+                if (Sr !=Obstacles)
                 {
-                    Map[row, column].Name = "Obstacle";
-                    Map[row, column].Background.BackColor = Color.Red;
+                    int row = r.Next(1, Size - 1);
+                    int column = r.Next(1, Size - 1);
+
+                    if (Map[row, column].Background.BackColor == Color.Wheat)
+                    {
+                        Map[row, column].Name = "Obstacle";
+                        Map[row, column].Background.BackColor = Color.Red;
+                        Sr++;
+                    }
+                }
+                else
+                {
+                    break;
                 }
             }
         }

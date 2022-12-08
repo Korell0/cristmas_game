@@ -27,7 +27,7 @@ namespace cristmas_game
             {
                 PictureBox uj = new PictureBox();
                 uj.Location = new Point(r.Next(10, 510), 3);
-                uj.Image = Image.FromFile("hopihe.png");
+                //uj.Image = Image.FromFile("hopihe.png");
                 this.Controls.Add(uj);
                 hopihek.Add(uj);
             }
