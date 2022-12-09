@@ -29,7 +29,9 @@ namespace cristmas_game
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // groupBox1
@@ -42,6 +44,11 @@ namespace cristmas_game
             this.groupBox1.Text = "groupBox1";
             this.groupBox1.Visible = false;
             // 
+            // Timer
+            // 
+            this.Timer.Interval = 2000;
+            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -51,6 +58,7 @@ namespace cristmas_game
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.ResumeLayout(false);
 
         }
@@ -58,6 +66,7 @@ namespace cristmas_game
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Timer Timer;
     }
 }
 

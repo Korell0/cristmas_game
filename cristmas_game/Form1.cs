@@ -14,8 +14,11 @@ namespace cristmas_game
     {
         static int Size = 15;
         static int Obstacles = 5;
+        static Keys key;
         static Fields[,] Map = new Fields[Size,Size];
         static SantaSnake Santa = new SantaSnake();
+        static Random R = new Random();
+        static int Moverow;
         public Form1()
         {
             InitializeComponent();
@@ -29,21 +32,22 @@ namespace cristmas_game
 
         private void GenerateSantaSnake()
         {
-            Random n = new Random();
 
-            int randomrow = n.Next(1, Size - 1);
-            int randomcolumn = n.Next(1, Size - 1);
+            int randomrow = R.Next(1, Size - 1);
+            int randomcolumn = R.Next(1, Size - 1);
 
 
-                if (Map[randomrow, randomcolumn].Name == "Obstacle" && !NeighborhoodCheck(randomrow, randomcolumn))
-                {
-                    GenerateSantaSnake();
-                }
-                else
-                {
-                    Map[randomrow, randomcolumn].Name = "Santa";
-                    Map[randomrow, randomcolumn].Background.BackColor = Color.Blue;
-                }
+            if (Map[randomrow, randomcolumn].Name == "Obstacle" || !NeighborhoodCheck(randomrow, randomcolumn))
+            {
+                GenerateSantaSnake();
+            }
+            else
+            {
+                Map[randomrow, randomcolumn].Name = "Santa";
+                Map[randomrow, randomcolumn].Background.BackColor = Color.Blue;
+                Santa.Helyzet.X = randomrow;
+                Santa.Helyzet.Y = randomcolumn;
+            }
 
 
 
@@ -56,42 +60,35 @@ namespace cristmas_game
             if(Map[row, column].Name != "Obstacle")
             {
                 //Down
-                for (int sor = row; sor >= row - 2; sor--)
+                for (int sor = row; sor >= row - 2 || sor < 0; sor--)
                 {
-                MessageBox.Show($"Down\n{row}, {column}, {Map[row, column].Name}");
                     if (Map[sor,column].Name != "Cell")
                     {
                         return false;
                     }
-                    break;
                 }
 
                 //Up
-                for (int sor = row; sor <= row + 2; sor++)
+                for (int sor = row; sor <= row + 2 || sor > Size; sor++)
                 {
-                MessageBox.Show($"UP\n{row}, {column}, {Map[row, column].Name}");
                     if (Map[sor, column].Name != "Cell")
                     {
                         return false;
                     }
-                    break;
                 }
 
                 //Right
-                for (int oszlop = column; oszlop < column; oszlop++)
+                for (int oszlop = column; oszlop < column + 2 || oszlop > Size; oszlop++)
                 {
-                MessageBox.Show($"RIGHT\n{row}, {column}, {Map[row, column].Name}");
                     if (Map[row,oszlop].Name != "Cell")
                     {
                         return false;
                     }
-                    break;
                 }
 
                 //Left
-                for (int oszlop = column; oszlop > column; oszlop--)
+                for (int oszlop = column; oszlop > column - 2 || oszlop < 0; oszlop--)
                 {
-                MessageBox.Show($"LEFT\n{row}, {column}, {Map[row, column].Name}");
                     if (Map[row, oszlop].Name != "Cell")
                     {
                         return false;  
@@ -170,5 +167,51 @@ namespace cristmas_game
         {
             Application.Exit();
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                Timer.Start();
+            }
+
+            key = e.KeyCode;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            MessageBox.Show("JEeeee");
+            //UP
+            if (key == Keys.W || key == Keys.Up)
+            {
+                Moverow = Santa.Helyzet.X - 1;
+                if (FieldCheck(Moverow))
+                {
+                    Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                    Map[Moverow, Santa.Helyzet.Y].Background.BackColor = Color.Blue;
+                    Santa.Helyzet.X = Moverow;
+                }
+            }
+        }
+
+        private bool FieldCheck(int check)
+        {
+            if (key == Keys.W || key == Keys.Up)
+            {
+                if (Map[check, Santa.Helyzet.Y].Name != "Obstacle" || Map[check,Santa.Helyzet.Y].Name != "Wall")
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Fal / akadály");
+                }
+            }
+            return false;
+        }
     }
+                /*||
+                e.KeyCode == Keys.S || e.KeyCode == Keys.Down||
+                e.KeyCode == Keys.A || e.KeyCode == Keys.Left||
+                e.KeyCode == Keys.D || e.KeyCode == Keys.Right*/
 }
