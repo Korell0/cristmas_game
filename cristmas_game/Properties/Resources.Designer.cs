@@ -73,6 +73,16 @@ namespace cristmas_game.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap giphy__1_ {
+            get {
+                object obj = ResourceManager.GetObject("giphy (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap hatter1 {
             get {
                 object obj = ResourceManager.GetObject("hatter1", resourceCulture);
