@@ -16,9 +16,12 @@ namespace cristmas_game
         public Mainmenu()
         {
             InitializeComponent();
-            GenerateHopihe();
+           
         }
 
+<<<<<<< HEAD
+       
+=======
         private void GenerateHopihe()
         {
             Random r = new Random();
@@ -33,6 +36,7 @@ namespace cristmas_game
             }
             timer1.Start();
         }
+>>>>>>> a9833e86c3f9b627cadf9a194b638d448ed3b757
 
 
         private void start_Btn_Click(object sender, EventArgs e)
@@ -42,18 +46,9 @@ namespace cristmas_game
             this.Hide();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Random r = new Random();
-            for (int i = 0; i < hopihek.Count; i++)
-            {
-                hopihek[i].Location = new Point(hopihek[i].Location.X, hopihek[i].Location.Y + 10);
-                if (hopihek[i].Location.Y >= 516)
-                {
-                    hopihek[i].Location = new Point(r.Next(2,510), 2);
-                }
-            }
-            
+
         }
     }
 }
