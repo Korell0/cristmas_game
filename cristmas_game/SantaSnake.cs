@@ -17,7 +17,6 @@ namespace cristmas_game
         public SantaSnake()
         {
             Body.Add("Santa");
-            Body.Add("Bag");
         }
     }
 }

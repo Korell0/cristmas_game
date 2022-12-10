@@ -15,10 +15,13 @@ namespace cristmas_game
         static int Size = 15;
         static int Obstacles = 5;
         static Keys key;
-        static Fields[,] Map = new Fields[Size,Size];
+        static Fields[,] Map = new Fields[Size, Size];
         static SantaSnake Santa = new SantaSnake();
         static Random R = new Random();
         static int Moverow;
+        static int Movecolumn;
+        static int Present = 0;
+        static int Point = 0;
         public Form1()
         {
             InitializeComponent();
@@ -27,9 +30,27 @@ namespace cristmas_game
             GenerateMap();
             GenerateObstacle();
             GenerateSantaSnake();
+            GeneratePresent();
 
         }
 
+        private void GeneratePresent()
+        {
+            for (int i = 0; i < Size * Size; i++)
+            {
+
+                int row = R.Next(1, Size - 1);
+                int column = R.Next(1, Size - 1);
+
+                if (Map[row, column].Background.BackColor == Color.Wheat)
+                {
+                    Map[row, column].Name = "Present";
+                    Map[row, column].Background.BackColor = Color.Green;
+                    break;
+                }
+
+            }
+        }
         private void GenerateSantaSnake()
         {
 
@@ -37,7 +58,7 @@ namespace cristmas_game
             int randomcolumn = R.Next(1, Size - 1);
 
 
-            if (Map[randomrow, randomcolumn].Name == "Obstacle" || !NeighborhoodCheck(randomrow, randomcolumn))
+            if (Map[randomrow, randomcolumn].Name == "Obstacle" && !NeighborhoodCheck(randomrow, randomcolumn))
             {
                 GenerateSantaSnake();
             }
@@ -55,21 +76,21 @@ namespace cristmas_game
 
         private bool NeighborhoodCheck(int row, int column)
         {
-                MessageBox.Show($"{row}, {column}, {Map[row,column].Name}");
+            MessageBox.Show($"{row}, {column}, {Map[row, column].Name}");
 
-            if(Map[row, column].Name != "Obstacle")
+            if (Map[row, column].Name != "Obstacle")
             {
                 //Down
-                for (int sor = row; sor >= row - 2 || sor < 0; sor--)
+                for (int sor = row; sor > row - 2 && sor < 0; sor--)
                 {
-                    if (Map[sor,column].Name != "Cell")
+                    if (Map[sor, column].Name != "Cell")
                     {
                         return false;
                     }
                 }
 
                 //Up
-                for (int sor = row; sor <= row + 2 || sor > Size; sor++)
+                for (int sor = row; sor < row + 2 && sor == Size; sor++)
                 {
                     if (Map[sor, column].Name != "Cell")
                     {
@@ -78,20 +99,20 @@ namespace cristmas_game
                 }
 
                 //Right
-                for (int oszlop = column; oszlop < column + 2 || oszlop > Size; oszlop++)
+                for (int oszlop = column; oszlop < column + 2 && oszlop == Size; oszlop++)
                 {
-                    if (Map[row,oszlop].Name != "Cell")
+                    if (Map[row, oszlop].Name != "Cell")
                     {
                         return false;
                     }
                 }
 
                 //Left
-                for (int oszlop = column; oszlop > column - 2 || oszlop < 0; oszlop--)
+                for (int oszlop = column; oszlop > column - 2 && oszlop < 0; oszlop--)
                 {
                     if (Map[row, oszlop].Name != "Cell")
                     {
-                        return false;  
+                        return false;
                     }
                 }
 
@@ -100,22 +121,21 @@ namespace cristmas_game
             }
             else
             {
-            return false;
+                return false;
 
             }
         }
 
         private void GenerateObstacle()
         {
-            Random r = new Random();
             int Sr = 0;
 
             for (int i = 0; i < Size * Size; i++)
             {
-                if (Sr !=Obstacles)
+                if (Sr != Obstacles)
                 {
-                    int row = r.Next(1, Size - 1);
-                    int column = r.Next(1, Size - 1);
+                    int row = R.Next(1, Size - 1);
+                    int column = R.Next(1, Size - 1);
 
                     if (Map[row, column].Background.BackColor == Color.Wheat)
                     {
@@ -136,7 +156,7 @@ namespace cristmas_game
             int size = 31;
 
             int startY = 16;
-            int startX = groupBox1.Height - 10 * size + 10;
+            int startX = groupBox1.Height - 13 * size;
 
             for (int row = 0; row < Map.GetLength(0); row++)
             {
@@ -147,7 +167,7 @@ namespace cristmas_game
 
                     if (row == 0 || row == Size - 1)
                     {
-                        Map[row, column] = new Fields(new Point(xPosition,yPosition), new Size(size,size), "Wall", 0, "Black");
+                        Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
                         this.Controls.Add(Map[row, column].Background);
                     }
                     if (column == 0 || column == Size - 1)
@@ -180,38 +200,190 @@ namespace cristmas_game
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            MessageBox.Show("JEeeee");
             //UP
             if (key == Keys.W || key == Keys.Up)
             {
                 Moverow = Santa.Helyzet.X - 1;
-                if (FieldCheck(Moverow))
+                if (Santa.Helyzet.X > 1)
                 {
-                    Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
-                    Map[Moverow, Santa.Helyzet.Y].Background.BackColor = Color.Blue;
-                    Santa.Helyzet.X = Moverow;
+                    if (FieldCheck(Moverow))
+                    {
+                        Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                        Map[Moverow, Santa.Helyzet.Y].Background.BackColor = Color.Blue;
+                        Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
+                        Santa.Helyzet.X = Moverow;
+                    }
+                    else
+                    {
+                        Timer.Stop();
+                        MessageBox.Show("Akadály!!");
+                    }
+                }
+                else
+                {
+                    Timer.Stop();
+                    MessageBox.Show("Fal!!");
+                }
+            }
+
+            //Down
+            if (key == Keys.S || key == Keys.Down)
+            {
+                Moverow = Santa.Helyzet.X +1;
+                if (Santa.Helyzet.X < Size - 2)
+                {
+                    if (FieldCheck(Moverow))
+                    {
+                        Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                        Map[Moverow, Santa.Helyzet.Y].Background.BackColor = Color.Blue;
+                        Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
+                        Santa.Helyzet.X = Moverow;
+                    }
+                    else
+                    {
+                        Timer.Stop();
+                        MessageBox.Show("Akadály!!");
+                    }
+                }
+                else
+                {
+                    Timer.Stop();
+                    MessageBox.Show("Fal!!");
+                }
+            }
+            //Right
+            if (key == Keys.D || key == Keys.Right)
+            {
+                Movecolumn = Santa.Helyzet.Y + 1;
+                if (Santa.Helyzet.Y < Size - 2)
+                {
+                    if (FieldCheck(Movecolumn))
+                    {
+                        Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                        Map[Santa.Helyzet.X, Movecolumn].Background.BackColor = Color.Blue;
+                        Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
+                        Santa.Helyzet.Y = Movecolumn;
+                    }
+                    else
+                    {
+                        Timer.Stop();
+                        MessageBox.Show("Akadály!!");
+                    }
+                }
+                else
+                {
+                    Timer.Stop();
+                    MessageBox.Show("Fal!!");
+                }
+            }
+            //Left
+            if (key == Keys.A || key == Keys.Left)
+            {
+                Movecolumn = Santa.Helyzet.Y - 1;
+                if (Santa.Helyzet.Y > 1)
+                {
+                    if (FieldCheck(Movecolumn))
+                    {
+                        Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                        Map[Santa.Helyzet.X, Movecolumn].Background.BackColor = Color.Blue;
+                        Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
+                        Santa.Helyzet.Y = Movecolumn;
+                    }
+                    else
+                    {
+                        Timer.Stop();
+                        MessageBox.Show("Akadály!!");
+                    }
+                }
+                else
+                {
+                    Timer.Stop();
+                    MessageBox.Show("Fal!!");
                 }
             }
         }
 
         private bool FieldCheck(int check)
         {
-            if (key == Keys.W || key == Keys.Up)
+            if (key == Keys.A || key == Keys.Left ||
+                key == Keys.D || key == Keys.Right)
             {
-                if (Map[check, Santa.Helyzet.Y].Name != "Obstacle" || Map[check,Santa.Helyzet.Y].Name != "Wall")
+                if (Map[Santa.Helyzet.X, check].Name == "Obstacle")
                 {
+                    return false;
+                }
+                else if (Map[Santa.Helyzet.X, check].Name == "Present")
+                {
+                    Present++;
+                    if (Present % 5 == 0)
+                    {
+                        GenerateBody();
+                        Point++;
+                    }
+                    PresentLBL.Text = $"{Present}";
+                    PointLBL.Text = $"{Point}";
+                    GeneratePresent();
                     return true;
                 }
                 else
                 {
-                    MessageBox.Show("Fal / akadály");
+                    return true;
                 }
             }
-            return false;
+            else
+            {
+                if (Map[check, Santa.Helyzet.Y].Name == "Obstacle")
+                {
+                    return false;
+                }
+                else if (Map[check, Santa.Helyzet.Y].Name == "Present")
+                {
+                    Present++;
+                    if (Present % 5 == 0)
+                    {
+                        GenerateBody();
+                        Point++;
+                    }
+                    PresentLBL.Text = $"{Present}";
+                    PointLBL.Text = $"{Point}";
+                    GeneratePresent();
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+
+        }
+
+        private void GenerateBody()
+        {
+            Santa.Body.Add("Bag");
+            if (Santa.Body.Count < 3)
+            {
+                if (key == Keys.A || key == Keys.Left)
+                {
+                    Map[Santa.Helyzet.X, Movecolumn + 1].Name = "Bag";
+                    Map[Santa.Helyzet.X, Movecolumn + 1].Background.BackColor = Color.LightBlue;
+                }
+                else if (key == Keys.D || key == Keys.Right)
+                {
+                    Map[Santa.Helyzet.X, Movecolumn - 1].Name = "Bag";
+                    Map[Santa.Helyzet.X, Movecolumn - 1].Background.BackColor = Color.LightBlue;
+                }
+                else if(key == Keys.W || key == Keys.Up)
+                {
+                    Map[Moverow + 1, Santa.Helyzet.Y].Name = "Bag";
+                    Map[Moverow + 1, Santa.Helyzet.Y].Background.BackColor = Color.LightBlue;
+                }
+                else if (key == Keys.S || key == Keys.Down)
+                {
+                    Map[Moverow - 1, Santa.Helyzet.Y].Name = "Bag";
+                    Map[Moverow - 1, Santa.Helyzet.Y].Background.BackColor = Color.LightBlue;
+                }
+            }
         }
     }
-                /*||
-                e.KeyCode == Keys.S || e.KeyCode == Keys.Down||
-                e.KeyCode == Keys.A || e.KeyCode == Keys.Left||
-                e.KeyCode == Keys.D || e.KeyCode == Keys.Right*/
 }

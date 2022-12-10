@@ -32,11 +32,13 @@ namespace cristmas_game
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Timer = new System.Windows.Forms.Timer(this.components);
+            this.PresentLBL = new System.Windows.Forms.Label();
+            this.PointLBL = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(408, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(18, 426);
             this.groupBox1.TabIndex = 0;
@@ -46,20 +48,41 @@ namespace cristmas_game
             // 
             // Timer
             // 
-            this.Timer.Interval = 2000;
+            this.Timer.Interval = 1000;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
+            // PresentLBL
+            // 
+            this.PresentLBL.AutoSize = true;
+            this.PresentLBL.Location = new System.Drawing.Point(639, 83);
+            this.PresentLBL.Name = "PresentLBL";
+            this.PresentLBL.Size = new System.Drawing.Size(35, 13);
+            this.PresentLBL.TabIndex = 1;
+            this.PresentLBL.Text = "label1";
+            // 
+            // PointLBL
+            // 
+            this.PointLBL.AutoSize = true;
+            this.PointLBL.Location = new System.Drawing.Point(639, 123);
+            this.PointLBL.Name = "PointLBL";
+            this.PointLBL.Size = new System.Drawing.Size(35, 13);
+            this.PointLBL.TabIndex = 2;
+            this.PointLBL.Text = "label2";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.PointLBL);
+            this.Controls.Add(this.PresentLBL);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -67,6 +90,8 @@ namespace cristmas_game
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Timer Timer;
+        private System.Windows.Forms.Label PresentLBL;
+        private System.Windows.Forms.Label PointLBL;
     }
 }
 
