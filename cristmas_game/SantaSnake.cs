@@ -11,12 +11,12 @@ namespace cristmas_game
     class SantaSnake
     {
         public string Name = "Santa";
-        public List<string> Body = new List<string>();
+        public List<Body> Body = new List<Body>();
         public Point Helyzet;
         
         public SantaSnake()
         {
-            Body.Add("Santa");
+
         }
     }
 }

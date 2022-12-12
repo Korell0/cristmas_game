@@ -22,6 +22,8 @@ namespace cristmas_game
         static int Movecolumn;
         static int Present = 0;
         static int Point = 0;
+        static Point PrevisiousSanta;
+        static Point PrevisiousLastCell;
         public Form1()
         {
             InitializeComponent();
@@ -208,10 +210,35 @@ namespace cristmas_game
                 {
                     if (FieldCheck(Moverow))
                     {
-                        Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
-                        Map[Moverow, Santa.Helyzet.Y].Background.BackColor = Color.Blue;
-                        Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
-                        Santa.Helyzet.X = Moverow;
+                        if (PresentCheck(Moverow))
+                        {
+                            Present++;
+                            if (Present % 5 == 0)
+                            {
+                                GenerateBody();
+                                Point++;
+                            }
+                            else
+                            {
+                                Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                            }
+                            PresentLBL.Text = $"{Present}";
+                            PointLBL.Text = $"{Point}";
+                            GeneratePresent();
+
+                            Map[Moverow, Santa.Helyzet.Y].Background.BackColor = Color.Blue;
+                            Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
+                            PrevisiousSanta = new Point(Santa.Helyzet.X, Santa.Helyzet.Y);
+                            Santa.Helyzet.X = Moverow;
+                        }
+                        else
+                        {
+                            Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                            Map[Moverow, Santa.Helyzet.Y].Background.BackColor = Color.Blue;
+                            Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
+                            PrevisiousSanta = new Point(Santa.Helyzet.X, Santa.Helyzet.Y);
+                            Santa.Helyzet.X = Moverow;
+                        }
                     }
                     else
                     {
@@ -234,10 +261,35 @@ namespace cristmas_game
                 {
                     if (FieldCheck(Moverow))
                     {
-                        Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
-                        Map[Moverow, Santa.Helyzet.Y].Background.BackColor = Color.Blue;
-                        Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
-                        Santa.Helyzet.X = Moverow;
+                        if (PresentCheck(Moverow))
+                        {
+                            Present++;
+                            if (Present % 5 == 0)
+                            {
+                                GenerateBody();
+                                Point++;
+                            }
+                            else
+                            {
+                                Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                            }
+                            PresentLBL.Text = $"{Present}";
+                            PointLBL.Text = $"{Point}";
+                            GeneratePresent();
+
+                            Map[Moverow, Santa.Helyzet.Y].Background.BackColor = Color.Blue;
+                            Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
+                            PrevisiousSanta = new Point(Santa.Helyzet.X, Santa.Helyzet.Y);
+                            Santa.Helyzet.X = Moverow;
+                        }
+                        else
+                        {
+                            Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                            Map[Moverow, Santa.Helyzet.Y].Background.BackColor = Color.Blue;
+                            Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
+                            PrevisiousSanta = new Point(Santa.Helyzet.X, Santa.Helyzet.Y);
+                            Santa.Helyzet.X = Moverow;
+                        }
                     }
                     else
                     {
@@ -259,10 +311,35 @@ namespace cristmas_game
                 {
                     if (FieldCheck(Movecolumn))
                     {
-                        Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
-                        Map[Santa.Helyzet.X, Movecolumn].Background.BackColor = Color.Blue;
-                        Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
-                        Santa.Helyzet.Y = Movecolumn;
+                        if (PresentCheck(Movecolumn))
+                        {
+                            Present++;
+                            if (Present % 5 == 0)
+                            {
+                                GenerateBody();
+                                Point++;
+                            }
+                            else
+                            {
+                                Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                            }
+                            PresentLBL.Text = $"{Present}";
+                            PointLBL.Text = $"{Point}";
+                            GeneratePresent();
+
+                            Map[Santa.Helyzet.X, Movecolumn].Background.BackColor = Color.Blue;
+                            Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
+                            PrevisiousSanta = new Point(Santa.Helyzet.X, Santa.Helyzet.Y);
+                            Santa.Helyzet.Y = Movecolumn;
+                        }
+                        else
+                        {
+                            Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                            Map[Santa.Helyzet.X, Movecolumn].Background.BackColor = Color.Blue;
+                            Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
+                            PrevisiousSanta = new Point(Santa.Helyzet.X, Santa.Helyzet.Y);
+                            Santa.Helyzet.Y = Movecolumn;
+                        }
                     }
                     else
                     {
@@ -284,9 +361,32 @@ namespace cristmas_game
                 {
                     if (FieldCheck(Movecolumn))
                     {
+                        if (PresentCheck(Movecolumn))
+                        {
+                            Present++;
+                            if (Present % 5 == 0)
+                            {
+                                GenerateBody();
+                                Point++;
+                            }
+                            else
+                            {
+                                Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                            }
+                            PresentLBL.Text = $"{Present}";
+                            PointLBL.Text = $"{Point}";
+                            GeneratePresent();
+
+                            Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
+                            Map[Santa.Helyzet.X, Movecolumn].Background.BackColor = Color.Blue;
+                            Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
+                            PrevisiousSanta = new Point(Santa.Helyzet.X, Santa.Helyzet.Y);
+                            Santa.Helyzet.Y = Movecolumn;
+                        }
                         Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
                         Map[Santa.Helyzet.X, Movecolumn].Background.BackColor = Color.Blue;
                         Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
+                        PrevisiousSanta = new Point(Santa.Helyzet.X, Santa.Helyzet.Y);
                         Santa.Helyzet.Y = Movecolumn;
                     }
                     else
@@ -301,6 +401,70 @@ namespace cristmas_game
                     MessageBox.Show("Fal!!");
                 }
             }
+
+            MoveBody();
+        }
+
+        private void MoveBody()
+        {
+            if (Santa.Body.Count != 0)
+            {
+                for (int i = 0; i < Santa.Body.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        if (Santa.Body.Count != 1)
+                        {
+                            Map[Santa.Body[i].Row, Santa.Body[i].Column].Background.BackColor = Color.Wheat;
+                            Santa.Body[i].Row = PrevisiousSanta.X;
+                            Santa.Body[i].Column = PrevisiousSanta.Y;
+                            Map[Santa.Body[i].Row, Santa.Body[i].Column].Background.BackColor = Color.LightBlue;
+                        }
+                        else
+                        {
+                            Map[Santa.Body[i].Row, Santa.Body[i].Column].Background.BackColor = Color.Wheat;
+                            Santa.Body[i].Row = PrevisiousSanta.X;
+                            Santa.Body[i].Column = PrevisiousSanta.Y;
+                            Map[Santa.Body[i].Row, Santa.Body[i].Column].Background.BackColor = Color.LightBlue;
+                        }
+                    }
+                    else if (i < Santa.Body.Count)
+                    {
+                        Santa.Body[i].Row = Santa.Body[i - 1].Row;
+                        Santa.Body[i].Column = Santa.Body[i - 1].Column;
+                        Map[Santa.Body[i].Row, Santa.Body[i].Column].Background.BackColor = Color.LightBlue;
+                    }
+                    else
+                    {
+                        PrevisiousLastCell = new Point(Santa.Body[i].Row, Santa.Body[i].Column);
+                        Map[Santa.Body[i].Row, Santa.Body[i].Column].Background.BackColor = Color.Wheat;
+                        Santa.Body[i].Row = Santa.Body[i - 1].Row;
+                        Santa.Body[i].Column = Santa.Body[i - 1].Column;
+                    }
+
+                }
+            }
+        }
+
+        private bool PresentCheck(int check)
+        {
+            if (key == Keys.A || key == Keys.Left ||
+                key == Keys.D || key == Keys.Right)
+            {
+                if (Map[Santa.Helyzet.X,check].Name == "Present")
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                if (Map[check,Santa.Helyzet.Y].Name == "Present")
+                {
+                    return true;
+                }
+                return false;
+            }
         }
 
         private bool FieldCheck(int check)
@@ -311,19 +475,6 @@ namespace cristmas_game
                 if (Map[Santa.Helyzet.X, check].Name == "Obstacle")
                 {
                     return false;
-                }
-                else if (Map[Santa.Helyzet.X, check].Name == "Present")
-                {
-                    Present++;
-                    if (Present % 5 == 0)
-                    {
-                        GenerateBody();
-                        Point++;
-                    }
-                    PresentLBL.Text = $"{Present}";
-                    PointLBL.Text = $"{Point}";
-                    GeneratePresent();
-                    return true;
                 }
                 else
                 {
@@ -336,19 +487,6 @@ namespace cristmas_game
                 {
                     return false;
                 }
-                else if (Map[check, Santa.Helyzet.Y].Name == "Present")
-                {
-                    Present++;
-                    if (Present % 5 == 0)
-                    {
-                        GenerateBody();
-                        Point++;
-                    }
-                    PresentLBL.Text = $"{Present}";
-                    PointLBL.Text = $"{Point}";
-                    GeneratePresent();
-                    return true;
-                }
                 else
                 {
                     return true;
@@ -360,29 +498,36 @@ namespace cristmas_game
 
         private void GenerateBody()
         {
-            Santa.Body.Add("Bag");
             if (Santa.Body.Count < 3)
             {
                 if (key == Keys.A || key == Keys.Left)
                 {
+                    Santa.Body.Add(new Body(Santa.Helyzet.X, Movecolumn + 1));
                     Map[Santa.Helyzet.X, Movecolumn + 1].Name = "Bag";
                     Map[Santa.Helyzet.X, Movecolumn + 1].Background.BackColor = Color.LightBlue;
                 }
                 else if (key == Keys.D || key == Keys.Right)
                 {
+                    Santa.Body.Add(new Body(Santa.Helyzet.X, Movecolumn - 1));
                     Map[Santa.Helyzet.X, Movecolumn - 1].Name = "Bag";
                     Map[Santa.Helyzet.X, Movecolumn - 1].Background.BackColor = Color.LightBlue;
                 }
                 else if(key == Keys.W || key == Keys.Up)
                 {
+                    Santa.Body.Add(new Body(Moverow + 1, Santa.Helyzet.Y));
                     Map[Moverow + 1, Santa.Helyzet.Y].Name = "Bag";
                     Map[Moverow + 1, Santa.Helyzet.Y].Background.BackColor = Color.LightBlue;
                 }
                 else if (key == Keys.S || key == Keys.Down)
                 {
+                    Santa.Body.Add(new Body(Moverow + 1, Santa.Helyzet.Y));
                     Map[Moverow - 1, Santa.Helyzet.Y].Name = "Bag";
                     Map[Moverow - 1, Santa.Helyzet.Y].Background.BackColor = Color.LightBlue;
                 }
+            }
+            else
+            {
+                Santa.Body.Add(new Body(PrevisiousLastCell.X, PrevisiousLastCell.Y));
             }
         }
     }
