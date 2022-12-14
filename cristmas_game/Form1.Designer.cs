@@ -54,31 +54,35 @@ namespace cristmas_game
             // PresentLBL
             // 
             this.PresentLBL.AutoSize = true;
-            this.PresentLBL.Location = new System.Drawing.Point(639, 83);
+            this.PresentLBL.Location = new System.Drawing.Point(899, 81);
             this.PresentLBL.Name = "PresentLBL";
-            this.PresentLBL.Size = new System.Drawing.Size(35, 13);
+            this.PresentLBL.Size = new System.Drawing.Size(13, 13);
             this.PresentLBL.TabIndex = 1;
-            this.PresentLBL.Text = "label1";
+            this.PresentLBL.Text = "0";
             // 
             // PointLBL
             // 
             this.PointLBL.AutoSize = true;
-            this.PointLBL.Location = new System.Drawing.Point(639, 123);
+            this.PointLBL.Location = new System.Drawing.Point(899, 121);
             this.PointLBL.Name = "PointLBL";
-            this.PointLBL.Size = new System.Drawing.Size(35, 13);
+            this.PointLBL.Size = new System.Drawing.Size(13, 13);
             this.PointLBL.TabIndex = 2;
-            this.PointLBL.Text = "label2";
+            this.PointLBL.Text = "0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1373, 555);
             this.Controls.Add(this.PointLBL);
             this.Controls.Add(this.PresentLBL);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "SAnta GAme";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.ResumeLayout(false);
