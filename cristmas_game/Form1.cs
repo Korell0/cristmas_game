@@ -56,16 +56,17 @@ namespace cristmas_game
         private void GenerateSantaSnake()
         {
 
-            int randomrow = R.Next(1, Size - 1);
-            int randomcolumn = R.Next(1, Size - 1);
+            int randomrow = R.Next(3, Size - 1);
+            int randomcolumn = R.Next(3, Size - 1);
 
-
-            if (Map[randomrow, randomcolumn].Name == "Obstacle" && !NeighborhoodCheck(randomrow, randomcolumn))
+            if (!NeighborhoodCheck(randomrow,randomcolumn) || Map[randomrow, randomcolumn].Name == "Obstacle")
             {
+                MessageBox.Show($"bullshit1  {randomrow}:{randomcolumn}");
                 GenerateSantaSnake();
             }
             else
             {
+                MessageBox.Show("bullshit");
                 Map[randomrow, randomcolumn].Name = "Santa";
                 Map[randomrow, randomcolumn].Background.BackgroundImage = Image.FromFile("santa.png");
                 Map[randomrow, randomcolumn].Background.BackgroundImageLayout = ImageLayout.Zoom;
@@ -79,42 +80,50 @@ namespace cristmas_game
 
         private bool NeighborhoodCheck(int row, int column)
         {
-            MessageBox.Show($"{row}, {column}, {Map[row, column].Name}");
 
-            if (Map[row, column].Name != "Obstacle")
+
+            if (Map[row, column].Name == "Cell")
             {
                 //Down
-                for (int sor = row; sor > row - 2 && sor < 0; sor--)
+                for (int sor = row; sor > row - 2; sor--)
                 {
+                    MessageBox.Show($"{Map[sor, column].Name} DOWN");
                     if (Map[sor, column].Name != "Cell")
                     {
+                       
                         return false;
                     }
                 }
 
                 //Up
-                for (int sor = row; sor < row + 2 && sor == Size; sor++)
+                for (int sor = row; sor < row + 2; sor++)
                 {
+                    MessageBox.Show($"{Map[sor, column].Name} UP");
                     if (Map[sor, column].Name != "Cell")
                     {
+                        
                         return false;
                     }
                 }
 
                 //Right
-                for (int oszlop = column; oszlop < column + 2 && oszlop == Size; oszlop++)
+                for (int oszlop = column; oszlop < column + 2; oszlop++)
                 {
+                    MessageBox.Show($"{Map[row, oszlop].Name} RIGHT");
                     if (Map[row, oszlop].Name != "Cell")
                     {
+                        
                         return false;
                     }
                 }
 
                 //Left
-                for (int oszlop = column; oszlop > column - 2 && oszlop < 0; oszlop--)
+                for (int oszlop = column; oszlop > column - 2; oszlop--)
                 {
+                    MessageBox.Show($"{Map[row, oszlop].Name} LEFT");
                     if (Map[row, oszlop].Name != "Cell")
                     {
+                        
                         return false;
                     }
                 }
@@ -122,17 +131,13 @@ namespace cristmas_game
                 return true;
 
             }
-            else
-            {
-                return false;
-
-            }
+            return false;
         }
 
         private void GenerateObstacle()
         {
             int Sr = 0;
-
+    
             DestroyOldObstacles();
             for (int i = 0; i < Size * Size; i++)
             {
@@ -140,8 +145,16 @@ namespace cristmas_game
                 {
                     int row = R.Next(1, Size - 1);
                     int column = R.Next(1, Size - 1);
+                    if ((Santa.Helyzet.X < 0 && Santa.Helyzet.Y < 0) || !NeighborhoodCheck(Santa.Helyzet.X,Santa.Helyzet.Y) || Map[row, column].Name == "Cell")
+                    {
+                        MessageBox.Show("Bullshit 3");
+                        Map[row, column].Name = "Obstacle";
+                        Map[row, column].Background.BackgroundImage = Image.FromFile("obstacle.png");
+                        Map[row, column].Background.BackgroundImageLayout = ImageLayout.Zoom;
+                        Sr++;
+                    }
 
-                    if (Map[row, column].Name == "Cell")
+                    else if (Map[row, column].Name == "Cell" )
                     {
                         Map[row, column].Name = "Obstacle";
                         Map[row, column].Background.BackgroundImage = Image.FromFile("obstacle.png");
