@@ -23,11 +23,12 @@ namespace cristmas_game
         static int Movecolumn;
         static int Present = 0;
         static int Point = 0;
-        public Form1()
+        static string Mode;
+
+        public Form1(string mode)
         {
             InitializeComponent();
-            this.Width = 1500;
-            this.Height = 1000;
+            Mode = mode;
             GenerateMap();
             GenerateObstacle();
             GenerateSantaSnake();
@@ -45,10 +46,21 @@ namespace cristmas_game
 
                 if (Map[row, column].Name == "Cell")
                 {
-                    Map[row, column].Name = "Present";
-                    Map[row, column].Background.BackgroundImage = Image.FromFile("gift_box.png");
-                    Map[row, column].Background.BackgroundImageLayout = ImageLayout.Zoom;
-                    break;
+                    if (Mode == "Day")
+                    {
+                        Map[row, column].Name = "Present";
+                        Map[row, column].Background.BackgroundImage = Image.FromFile("gift_box.png");
+                        Map[row, column].Background.BackgroundImageLayout = ImageLayout.Zoom;
+                        break;
+                    }
+                    else
+                    {
+                        Map[row, column].Name = "Present";
+                        Map[row, column].Background.BackgroundImage = Image.FromFile("gift_box.png");
+                        Map[row, column].Background.BackgroundImageLayout = ImageLayout.Zoom;
+                        break;
+                    }
+
                 }
 
             }
@@ -59,23 +71,63 @@ namespace cristmas_game
             int randomrow = R.Next(3, Size - 1);
             int randomcolumn = R.Next(3, Size - 1);
 
+
             if (!NeighborhoodCheck(randomrow,randomcolumn) || Map[randomrow, randomcolumn].Name == "Obstacle")
             {
-                MessageBox.Show($"bullshit1  {randomrow}:{randomcolumn}");
+                //MessageBox.Show($"bullshit1  {randomrow}:{randomcolumn}");
                 GenerateSantaSnake();
             }
             else
             {
-                MessageBox.Show("bullshit");
+                //MessageBox.Show("bullshit");
                 Map[randomrow, randomcolumn].Name = "Santa";
                 Map[randomrow, randomcolumn].Background.BackgroundImage = Image.FromFile("santa.png");
                 Map[randomrow, randomcolumn].Background.BackgroundImageLayout = ImageLayout.Zoom;
+                Map[randomrow, randomcolumn].Background.Visible = true;
                 Santa.Helyzet.X = randomrow;
                 Santa.Helyzet.Y = randomcolumn;
+                if (Mode == "Night")
+                {
+                    Seenable();
+                }
             }
 
 
+        }
 
+        private void Seenable()
+        {
+            for (int row = Santa.Helyzet.X - 2; row < Santa.Helyzet.X + 2; row++)
+            {
+                if (row < Santa.Helyzet.X)
+                {
+                    if (row == Santa.Helyzet.X - 2 && row > 0)
+                    {
+                            Map[row, Santa.Helyzet.Y].Background.Visible = true;
+                    }
+                    else if (row == Santa.Helyzet.X - 1)
+                    {
+                        if (row > 0)
+                        {
+                            for (int column = Santa.Helyzet.Y - 1; column <= Santa.Helyzet.Y + 1; column++)
+                            {
+                                Map[row, column].Background.Visible = true;
+                            }
+                        }
+                    }
+                    else if (row == Santa.Helyzet.X)
+                    {
+                        for (int column = Santa.Helyzet.Y + 2; column <= Santa.Helyzet.Y + 2; column++)
+                        {
+                            if (column > 0 || column < Size)
+                            {
+                                Map[row, column].Background.Visible = true;
+                            }
+                        }
+                    }
+                }
+
+            }
         }
 
         private bool NeighborhoodCheck(int row, int column)
@@ -85,10 +137,10 @@ namespace cristmas_game
             if (Map[row, column].Name == "Cell")
             {
                 //Down
-                for (int sor = row; sor > row - 2; sor--)
+                for (int sor = row; sor > row - 2 && sor > 0; sor--)
                 {
-                    MessageBox.Show($"{Map[sor, column].Name} DOWN");
-                    if (Map[sor, column].Name != "Cell")
+                    //MessageBox.Show($"{Map[sor, column].Name} DOWN");
+                    if (Map[sor, column].Name != "Cell" )
                     {
                        
                         return false;
@@ -96,10 +148,10 @@ namespace cristmas_game
                 }
 
                 //Up
-                for (int sor = row; sor < row + 2; sor++)
+                for (int sor = row; sor < row + 2 && sor < Size; sor++)
                 {
-                    MessageBox.Show($"{Map[sor, column].Name} UP");
-                    if (Map[sor, column].Name != "Cell")
+                    //MessageBox.Show($"{Map[sor, column].Name} UP");
+                    if (Map[sor, column].Name != "Cell" )
                     {
                         
                         return false;
@@ -107,10 +159,10 @@ namespace cristmas_game
                 }
 
                 //Right
-                for (int oszlop = column; oszlop < column + 2; oszlop++)
+                for (int oszlop = column; oszlop < column + 2 && oszlop < Size; oszlop++)
                 {
-                    MessageBox.Show($"{Map[row, oszlop].Name} RIGHT");
-                    if (Map[row, oszlop].Name != "Cell")
+                    //MessageBox.Show($"{Map[row, oszlop].Name} RIGHT");
+                    if (Map[row, oszlop].Name != "Cell" )
                     {
                         
                         return false;
@@ -118,10 +170,10 @@ namespace cristmas_game
                 }
 
                 //Left
-                for (int oszlop = column; oszlop > column - 2; oszlop--)
+                for (int oszlop = column; oszlop > column - 2 && oszlop > 0; oszlop--)
                 {
-                    MessageBox.Show($"{Map[row, oszlop].Name} LEFT");
-                    if (Map[row, oszlop].Name != "Cell")
+                    //MessageBox.Show($"{Map[row, oszlop].Name} LEFT");
+                    if (Map[row, oszlop].Name != "Cell" )
                     {
                         
                         return false;
@@ -147,7 +199,7 @@ namespace cristmas_game
                     int column = R.Next(1, Size - 1);
                     if ((Santa.Helyzet.X < 0 && Santa.Helyzet.Y < 0) || !NeighborhoodCheck(Santa.Helyzet.X,Santa.Helyzet.Y) || Map[row, column].Name == "Cell")
                     {
-                        MessageBox.Show("Bullshit 3");
+                        //MessageBox.Show("Bullshit 3");
                         Map[row, column].Name = "Obstacle";
                         Map[row, column].Background.BackgroundImage = Image.FromFile("obstacle.png");
                         Map[row, column].Background.BackgroundImageLayout = ImageLayout.Zoom;
@@ -195,29 +247,60 @@ namespace cristmas_game
             int startY = 16;
             int startX = size;
 
-            for (int row = 0; row < Map.GetLength(0); row++)
+            if (Mode == "Day")
             {
-                for (int column = 0; column < Map.GetLength(1); column++)
+                for (int row = 0; row < Map.GetLength(0); row++)
                 {
-                    int xPosition = startX + column * size + column;
-                    int yPosition = startY + row * size + row;
-
-                    if (row == 0 || row == Size - 1)
+                    for (int column = 0; column < Map.GetLength(1); column++)
                     {
-                        Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
+                        int xPosition = startX + column * size + column;
+                        int yPosition = startY + row * size + row;
+
+                        if (row == 0 || row == Size - 1)
+                        {
+                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
+                            this.Controls.Add(Map[row, column].Background);
+                        }
+                        if (column == 0 || column == Size - 1)
+                        {
+                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
+                            this.Controls.Add(Map[row, column].Background);
+                        }
+
+                        Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Cell", 0, "Wheat");
+
                         this.Controls.Add(Map[row, column].Background);
                     }
-                    if (column == 0 || column == Size - 1)
-                    {
-                        Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
-                        this.Controls.Add(Map[row, column].Background);
-                    }
-
-                    Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Cell", 0, "Wheat");
-
-                    this.Controls.Add(Map[row, column].Background);
                 }
             }
+            else
+            {
+                for (int row = 0; row < Map.GetLength(0); row++)
+                {
+                    for (int column = 0; column < Map.GetLength(1); column++)
+                    {
+                        int xPosition = startX + column * size + column;
+                        int yPosition = startY + row * size + row;
+
+                        if (row == 0 || row == Size - 1)
+                        {
+                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
+                            this.Controls.Add(Map[row, column].Background);
+                        }
+                        if (column == 0 || column == Size - 1)
+                        {
+                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
+                            this.Controls.Add(Map[row, column].Background);
+                        }
+
+                        Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Cell", 0, "Wheat");
+                        Map[row, column].Background.Visible = false;
+
+                        this.Controls.Add(Map[row, column].Background);
+                    }
+                }
+            }
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -281,6 +364,11 @@ namespace cristmas_game
                             Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
 
                             Santa.Helyzet.X = Moverow;
+                            if (Mode == "Night")
+                            {
+                                Seenable();
+
+                            }
                         }
                         else
                         {
@@ -292,6 +380,12 @@ namespace cristmas_game
                             Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
 
                             Santa.Helyzet.X = Moverow;
+                            if (Mode == "Night")
+                            {
+                                Seenable();
+
+                            }
+
                         }
                     }
                     else
@@ -336,6 +430,12 @@ namespace cristmas_game
                             Map[Moverow, Santa.Helyzet.Y].Background.BackgroundImageLayout = ImageLayout.Zoom;
                             Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
                             Santa.Helyzet.X = Moverow;
+                            if (Mode == "Night")
+                            {
+                                Seenable();
+
+                            }
+
                         }
                         else
                         {
@@ -345,6 +445,12 @@ namespace cristmas_game
                             Map[Moverow, Santa.Helyzet.Y].Background.BackgroundImageLayout = ImageLayout.Zoom;
                             Map[Moverow, Santa.Helyzet.Y].Name = "Santa";
                             Santa.Helyzet.X = Moverow;
+                            if (Mode == "Night")
+                            {
+                                Seenable();
+
+                            }
+
                         }
                     }
                     else
@@ -389,6 +495,12 @@ namespace cristmas_game
                             Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
 
                             Santa.Helyzet.Y = Movecolumn;
+                            if (Mode == "Night")
+                            {
+                                Seenable();
+
+                            }
+
                         }
                         else
                         {
@@ -398,6 +510,12 @@ namespace cristmas_game
                             Map[Santa.Helyzet.X, Movecolumn].Background.BackgroundImageLayout = ImageLayout.Zoom;
                             Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
                             Santa.Helyzet.Y = Movecolumn;
+                            if (Mode == "Night")
+                            {
+                                Seenable();
+
+                            }
+
                         }
                     }
                     else
@@ -441,6 +559,12 @@ namespace cristmas_game
                             Map[Santa.Helyzet.X, Movecolumn].Background.BackgroundImageLayout = ImageLayout.Zoom;
                             Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
                             Santa.Helyzet.Y = Movecolumn;
+                            if (Mode == "Night")
+                            {
+                                Seenable();
+
+                            }
+
                         }
                         Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackColor = Color.Wheat;
                         Map[Santa.Helyzet.X, Santa.Helyzet.Y].Background.BackgroundImage = null;
@@ -449,6 +573,12 @@ namespace cristmas_game
                         Map[Santa.Helyzet.X, Movecolumn].Name = "Santa";
 
                         Santa.Helyzet.Y = Movecolumn;
+                        if (Mode == "Night")
+                        {
+                            Seenable();
+
+                        }
+
                     }
                     else
                     {

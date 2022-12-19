@@ -12,7 +12,6 @@ namespace cristmas_game
 {
     public partial class Mainmenu : Form
     {
-        static List<PictureBox> hopihek = new List<PictureBox>();
         public Mainmenu()
         {
             InitializeComponent();
@@ -20,16 +19,18 @@ namespace cristmas_game
         }
 
 
-        private void start_Btn_Click(object sender, EventArgs e)
+        private void Day_Click(object sender, EventArgs e)
         {
-            Form1 uj = new Form1();
+            Form1 uj = new Form1("Day");
             uj.Show();
             this.Hide();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void Night_Click(object sender, EventArgs e)
         {
-
+            Form1 uj = new Form1("Night");
+            uj.Show();
+            this.Hide();
         }
     }
 }
