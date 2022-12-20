@@ -97,38 +97,50 @@ namespace cristmas_game
 
         private void Seenable()
         {
-            for (int row = Santa.Helyzet.X - 2; row < Santa.Helyzet.X + 2; row++)
+            for (int row = Santa.Helyzet.X - 2; row <= Santa.Helyzet.X + 2; row++)
             {
-                if (row < Santa.Helyzet.X)
+                if (row == Santa.Helyzet.X - 2 && row > 0)
                 {
-                    if (row == Santa.Helyzet.X - 2 && row > 0)
+                        Map[row, Santa.Helyzet.Y].Background.Visible = true;
+                }
+                else if (row == Santa.Helyzet.X - 1)
+                {
+                    if (row > 0)
                     {
-                            Map[row, Santa.Helyzet.Y].Background.Visible = true;
-                    }
-                    else if (row == Santa.Helyzet.X - 1)
-                    {
-                        if (row > 0)
+                        for (int column = Santa.Helyzet.Y - 1; column <= Santa.Helyzet.Y + 1; column++)
                         {
-                            for (int column = Santa.Helyzet.Y - 1; column <= Santa.Helyzet.Y + 1; column++)
-                            {
-                                Map[row, column].Background.Visible = true;
-                            }
+                            Map[row, column].Background.Visible = true;
                         }
                     }
-                    else if (row == Santa.Helyzet.X)
+                }
+                else if (row == Santa.Helyzet.X)
+                {
+                    for (int column = Santa.Helyzet.Y - 2; column <= Santa.Helyzet.Y + 2; column++)
                     {
-                        for (int column = Santa.Helyzet.Y + 2; column <= Santa.Helyzet.Y + 2; column++)
+                        if (column > 0 || column < Size)
                         {
-                            if (column > 0 || column < Size)
-                            {
-                                Map[row, column].Background.Visible = true;
-                            }
+                            Map[Santa.Helyzet.X, column].Background.Visible = true;
                         }
                     }
+                }
+                else if(row == Santa.Helyzet.X + 1)
+                {
+                    for (int column = Santa.Helyzet.Y - 1; column <= Santa.Helyzet.Y + 1; column++)
+                    {
+                        if (row < Size)
+                        {
+                            Map[row, column].Background.Visible = true;
+                        }
+                    }
+                }
+                else if (row == Santa.Helyzet.X + 2 && row < Size)
+                {
+                        Map[row, Santa.Helyzet.Y].Background.Visible = true;
                 }
 
             }
         }
+
 
         private bool NeighborhoodCheck(int row, int column)
         {
@@ -366,8 +378,8 @@ namespace cristmas_game
                             Santa.Helyzet.X = Moverow;
                             if (Mode == "Night")
                             {
+                                Unseenable();
                                 Seenable();
-
                             }
                         }
                         else
@@ -382,8 +394,8 @@ namespace cristmas_game
                             Santa.Helyzet.X = Moverow;
                             if (Mode == "Night")
                             {
+                                Unseenable();
                                 Seenable();
-
                             }
 
                         }
@@ -432,8 +444,8 @@ namespace cristmas_game
                             Santa.Helyzet.X = Moverow;
                             if (Mode == "Night")
                             {
+                                Unseenable();
                                 Seenable();
-
                             }
 
                         }
@@ -447,8 +459,8 @@ namespace cristmas_game
                             Santa.Helyzet.X = Moverow;
                             if (Mode == "Night")
                             {
+                                Unseenable();
                                 Seenable();
-
                             }
 
                         }
@@ -497,8 +509,8 @@ namespace cristmas_game
                             Santa.Helyzet.Y = Movecolumn;
                             if (Mode == "Night")
                             {
+                                Unseenable();
                                 Seenable();
-
                             }
 
                         }
@@ -512,8 +524,8 @@ namespace cristmas_game
                             Santa.Helyzet.Y = Movecolumn;
                             if (Mode == "Night")
                             {
+                                Unseenable();
                                 Seenable();
-
                             }
 
                         }
@@ -561,8 +573,8 @@ namespace cristmas_game
                             Santa.Helyzet.Y = Movecolumn;
                             if (Mode == "Night")
                             {
+                                Unseenable();
                                 Seenable();
-
                             }
 
                         }
@@ -575,8 +587,8 @@ namespace cristmas_game
                         Santa.Helyzet.Y = Movecolumn;
                         if (Mode == "Night")
                         {
+                            Unseenable();
                             Seenable();
-
                         }
 
                     }
@@ -596,7 +608,16 @@ namespace cristmas_game
            
         }
 
-  
+        private void Unseenable()
+        {
+            for (int row = 1; row < Map.GetLength(0) - 1; row++)
+            {
+                for (int column = 1; column < Map.GetLength(1) - 1; column++)
+                {
+                    Map[row, column].Background.Visible = false;
+                }
+            }
+        }
 
         private bool PresentCheck(int check)
         {
