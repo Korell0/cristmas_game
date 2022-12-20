@@ -47,7 +47,7 @@ namespace cristmas_game
             this.Day.BackColor = System.Drawing.Color.Transparent;
             this.Day.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Day.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Day.Font = new System.Drawing.Font("Ravie", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Day.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Day.ForeColor = System.Drawing.Color.Red;
             this.Day.Location = new System.Drawing.Point(12, 152);
             this.Day.Name = "Day";
@@ -95,7 +95,7 @@ namespace cristmas_game
             this.Night.BackColor = System.Drawing.Color.Transparent;
             this.Night.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Night.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Night.Font = new System.Drawing.Font("Ravie", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Night.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Night.ForeColor = System.Drawing.Color.Red;
             this.Night.Location = new System.Drawing.Point(735, 170);
             this.Night.Name = "Night";
@@ -109,7 +109,7 @@ namespace cristmas_game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::cristmas_game.Properties.Resources.hatter1;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1068, 477);
             this.Controls.Add(this.Night);
@@ -123,7 +123,7 @@ namespace cristmas_game
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1084, 516);
             this.Name = "Mainmenu";
-            this.Text = "Santa Snake: The Game";
+            this.Text = "The Santa Game";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
