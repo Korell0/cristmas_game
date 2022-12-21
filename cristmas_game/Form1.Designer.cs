@@ -30,10 +30,12 @@ namespace cristmas_game
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.PresentLBL = new System.Windows.Forms.Label();
             this.PointLBL = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -54,7 +56,7 @@ namespace cristmas_game
             // PresentLBL
             // 
             this.PresentLBL.AutoSize = true;
-            this.PresentLBL.Location = new System.Drawing.Point(899, 81);
+            this.PresentLBL.Location = new System.Drawing.Point(957, 93);
             this.PresentLBL.Name = "PresentLBL";
             this.PresentLBL.Size = new System.Drawing.Size(13, 13);
             this.PresentLBL.TabIndex = 1;
@@ -63,20 +65,34 @@ namespace cristmas_game
             // PointLBL
             // 
             this.PointLBL.AutoSize = true;
-            this.PointLBL.Location = new System.Drawing.Point(899, 121);
+            this.PointLBL.Location = new System.Drawing.Point(957, 121);
             this.PointLBL.Name = "PointLBL";
             this.PointLBL.Size = new System.Drawing.Size(13, 13);
             this.PointLBL.TabIndex = 2;
             this.PointLBL.Text = "0";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(893, 146);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(18, 426);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1373, 555);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1370, 555);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.PointLBL);
             this.Controls.Add(this.PresentLBL);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
@@ -96,6 +112,7 @@ namespace cristmas_game
         private System.Windows.Forms.Timer Timer;
         private System.Windows.Forms.Label PresentLBL;
         private System.Windows.Forms.Label PointLBL;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 

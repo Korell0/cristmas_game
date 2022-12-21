@@ -31,6 +31,7 @@ namespace cristmas_game
             Form1 uj = new Form1("Night");
             uj.Show();
             this.Hide();
+
         }
     }
 }

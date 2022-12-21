@@ -24,6 +24,7 @@ namespace cristmas_game
         static int Present = 0;
         static int Point = 0;
         static string Mode;
+        static List<PictureBox> presents = new List<PictureBox>();
 
         public Form1(string mode)
         {
@@ -43,27 +44,30 @@ namespace cristmas_game
 
                 int row = R.Next(1, Size - 1);
                 int column = R.Next(1, Size - 1);
-
-                if (Map[row, column].Name == "Cell")
-                {
-                    if (Mode == "Day")
+              
+                    if (Map[row, column].Name == "Cell")
                     {
-                        Map[row, column].Name = "Present";
-                        Map[row, column].Background.BackgroundImage = Image.FromFile("gift_box.png");
-                        Map[row, column].Background.BackgroundImageLayout = ImageLayout.Zoom;
-                        break;
-                    }
-                    else
-                    {
-                        Map[row, column].Name = "Present";
-                        Map[row, column].Background.BackgroundImage = Image.FromFile("gift_box.png");
-                        Map[row, column].Background.BackgroundImageLayout = ImageLayout.Zoom;
-                        break;
-                    }
+                        if (Mode == "Day")
+                        {
+                            Map[row, column].Name = "Present";
+                            Map[row, column].Background.BackgroundImage = Image.FromFile("gift_box.png");
+                            Map[row, column].Background.BackgroundImageLayout = ImageLayout.Zoom;
+                            break;
+                        }
+                        else
+                        {
+                            Map[row, column].Name = "Present";
+                            Map[row, column].Background.BackgroundImage = Image.FromFile("gift_box.png");
+                            Map[row, column].Background.BackgroundImageLayout = ImageLayout.Zoom;
+                            break;
+                        }
 
-                }
+                    }
+                
+               
 
             }
+           
         }
         private void GenerateSantaSnake()
         {
@@ -270,12 +274,17 @@ namespace cristmas_game
 
                         if (row == 0 || row == Size - 1)
                         {
-                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
+                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Trasnparent");
+                            Map[row, column].Background.BackgroundImage = Image.FromFile("mountan(1).png");
+                            Map[row, column].Background.BackgroundImageLayout = ImageLayout.Stretch;
+                            Map[row, column].Background.Visible = true;
                             this.Controls.Add(Map[row, column].Background);
                         }
                         if (column == 0 || column == Size - 1)
                         {
-                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
+                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Trasnparent");
+                            Map[row, column].Background.BackgroundImage = Image.FromFile("mountan(1).png");
+                            Map[row, column].Background.BackgroundImageLayout = ImageLayout.Stretch;
                             this.Controls.Add(Map[row, column].Background);
                         }
 
@@ -296,12 +305,16 @@ namespace cristmas_game
 
                         if (row == 0 || row == Size - 1)
                         {
-                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
+                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Trasnparent");
+                            Map[row, column].Background.BackgroundImage = Image.FromFile("mountan(1).png");
+                            Map[row, column].Background.BackgroundImageLayout = ImageLayout.Stretch;
                             this.Controls.Add(Map[row, column].Background);
                         }
                         if (column == 0 || column == Size - 1)
                         {
-                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Black");
+                            Map[row, column] = new Fields(new Point(xPosition, yPosition), new Size(size, size), "Wall", 0, "Trasnparent");
+                            Map[row, column].Background.BackgroundImage = Image.FromFile("mountan(1).png");
+                            Map[row, column].Background.BackgroundImageLayout = ImageLayout.Stretch;
                             this.Controls.Add(Map[row, column].Background);
                         }
 
@@ -312,7 +325,7 @@ namespace cristmas_game
                     }
                 }
             }
-
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -356,6 +369,7 @@ namespace cristmas_game
                         if (PresentCheck(Moverow))
                         {
                             Present++;
+                            AdPresent(Present);
                             if (Present % 5 == 0)
                             {
                                 Point++;
@@ -608,6 +622,30 @@ namespace cristmas_game
            
         }
 
+        private void AdPresent(int present)
+        {
+            
+            for (int i = 0; i < present; i++)
+            {
+                PictureBox ajandek = new PictureBox();
+                ajandek.BackgroundImage = Image.FromFile("gift_box.png");
+                ajandek.BackgroundImageLayout = ImageLayout.Zoom;
+                ajandek.Width = 50;
+                ajandek.Height = 50;
+                ajandek.Location = new Point(10+i*50,20);
+                ajandek.Visible = true;
+                presents.Add(ajandek);
+            }
+            ShowPresents();
+        }
+
+        private void ShowPresents()
+        {
+            for (int i = 0; i < presents.Count; i++)
+            {
+                groupBox2.Controls.Add(presents[i]);
+                groupBox2.Visible = true;
+                
         private void Unseenable()
         {
             for (int row = 1; row < Map.GetLength(0) - 1; row++)
